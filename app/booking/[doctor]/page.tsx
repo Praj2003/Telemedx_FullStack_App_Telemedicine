@@ -27,6 +27,16 @@ import { FaChevronDown } from "react-icons/fa";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const ConfirmationBooking = () => {
   const params = useParams();
   const doctorParam = params?.doctor;
@@ -37,10 +47,12 @@ const ConfirmationBooking = () => {
     new Date()
   );
 
+  const [age, setAge] = useState<number>(0);
   const [patientName, setPatientName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const [shift, setShift] = useState<string | undefined>("")
 
   async function handleSubmit() {
     try {
@@ -95,10 +107,10 @@ const ConfirmationBooking = () => {
           </h2>
         </div>
         <div className="w-full flex items-center justify-center">
-          <Card className="w-[400px] p-6 bg-white shadow-2xl mt-10 mb-5">
+          <Card className="w-[400px] lg:w-[500px] md:w-[450px] p-6 bg-white shadow-2xl mt-10 mb-5">
             <CardHeader>
               <CardTitle className="text-teal-600 font-bold text-xl pb-3">
-                See Your Doctor Instantly
+                Your Doctor Is Just a Call Away
               </CardTitle>
             </CardHeader>
 
@@ -108,6 +120,15 @@ const ConfirmationBooking = () => {
                 <Input
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
+                  placeholder="Enter your age"
+                />
+              </div>
+
+              <div className="w-full flex flex-col gap-2 pb-3">
+                <Label>Enter the Age of Patient</Label>
+                <Input
+                  value={age}
+                  onChange={(e) => setAge(Number(e.target.value))}
                   placeholder="Enter Name"
                 />
               </div>
@@ -162,6 +183,23 @@ const ConfirmationBooking = () => {
                     />
                   </PopoverContent>
                 </Popover>
+              </div>
+
+              <div className="w-full flex flex-col gap-2 pb-2 pt-3">
+                <Label>Select Preferred Shift</Label>
+                <Select value={shift} onValueChange={(value) => setShift(value)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue className="text-black font-bold" placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Shifts</SelectLabel>
+                      <SelectItem value="morning">Morning</SelectItem>
+                      <SelectItem value="afternoon">Afternoon</SelectItem>
+                      <SelectItem value="evening">Evening</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
 
