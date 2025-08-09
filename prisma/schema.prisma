@@ -38,12 +38,14 @@ model LabTestBooking {
 
 model AppointmentBooking {
   id              String   @id @default(cuid())
+  age             Int      @default(0)
   patientName     String
   contactNumber   String
   address         String
   status          String   @default("Confirmed")
   doctorAttending String
   preferedDate    DateTime
+  preferredShift  String   @default("Morning")
   createdAt       DateTime @default(now())
   userEmail       String
   user            User     @relation(fields: [userEmail], references: [email])

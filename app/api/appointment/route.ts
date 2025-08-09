@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { m } from "motion/react";
 
 export async function POST(req: Request) {
   try {
@@ -11,6 +10,8 @@ export async function POST(req: Request) {
       preferredDate,
       email,
       doctor,
+      age,
+      shift,
     } = await req.json();
 
     if (!email) {
@@ -38,13 +39,17 @@ export async function POST(req: Request) {
     const appointmentBooking = await prisma.appointmentBooking.create({
       data: {
         patientName: patientName,
+        age: age,
         contactNumber: contactNumber,
         address: address,
         doctorAttending: doctor,
         preferedDate: new Date(preferredDate),
         userEmail: email,
+        preferredShift: shift,
       },
     });
+
+    console.log(appointmentBooking);
 
     return NextResponse.json(
       { Message: "Doctor Appointment booking has been successfully done" },

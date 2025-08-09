@@ -52,7 +52,7 @@ const ConfirmationBooking = () => {
   const [contactNumber, setContactNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [open, setOpen] = useState(false);
-  const [shift, setShift] = useState<string | undefined>("")
+  const [shift, setShift] = useState<string | undefined>("");
 
   async function handleSubmit() {
     try {
@@ -75,6 +75,8 @@ const ConfirmationBooking = () => {
           doctor,
           preferredDate,
           email,
+          age,
+          shift,
         }),
       });
 
@@ -187,16 +189,28 @@ const ConfirmationBooking = () => {
 
               <div className="w-full flex flex-col gap-2 pb-2 pt-3">
                 <Label>Select Preferred Shift</Label>
-                <Select value={shift} onValueChange={(value) => setShift(value)}>
+                <Select
+                  value={shift}
+                  onValueChange={(value) => setShift(value)}
+                >
                   <SelectTrigger className="w-full">
-                    <SelectValue className="text-black font-bold" placeholder="Select a fruit" />
+                    <SelectValue
+                      className="text-black font-bold"
+                      placeholder="Select a fruit"
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Shifts</SelectLabel>
-                      <SelectItem value="morning">Morning</SelectItem>
-                      <SelectItem value="afternoon">Afternoon</SelectItem>
-                      <SelectItem value="evening">Evening</SelectItem>
+                      <SelectItem value="morning">
+                        Morning (8AM - 12PM)
+                      </SelectItem>
+                      <SelectItem value="afternoon">
+                        Afternoon (12PM - 4PM)
+                      </SelectItem>
+                      <SelectItem value="evening">
+                        Evening (4PM - 11PM)
+                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
