@@ -14,6 +14,8 @@ import { useState, useEffect } from "react";
 
 import LabTestDataComponent from "@/components/LabTestComponent";
 
+import AppointmentComponent from "@/components/AppointmentComponent";
+
 interface Appointment {
   patientName: string;
   contactNumber: string;
@@ -152,6 +154,14 @@ const UserDashboard = () => {
           <LabTestDataComponent props={labTestData} />
         </div>
       )}
+
+      {
+        appointmentData !== null && <div className="min-w-full place-items-center">
+            <AppointmentComponent props={appointmentData}/>
+        </div>
+      }
+
+
     </div>
   );
 };
