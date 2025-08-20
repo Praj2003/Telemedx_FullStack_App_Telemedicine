@@ -1,5 +1,8 @@
+"use client";
 import React from "react";
 import { motion } from "motion/react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface Appointment {
   patientName: string;
@@ -10,11 +13,48 @@ interface Appointment {
   userEmail: string;
 }
 
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
 interface propsComponent {
   props: Appointment[];
 }
 
 const AppointmentComponent = ({ props }: propsComponent) => {
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<Appointment | null>(null);
+
+  async function handleRevoke(email: string, doctorName: string) {
+    try {
+      const data = {
+        email,
+        doctorName,
+      };
+      const response = await fetch("/api/appointment", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success("Successfully Revoked your request", { duration: 700 });
+      }
+
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      toast.error(
+        "There is some error while sending the request to the database!"
+      );
+    }
+  }
   return (
     <>
       <div className="w-full text-center mt-6 mb-5">
@@ -58,7 +98,8 @@ const AppointmentComponent = ({ props }: propsComponent) => {
             </div>
 
             <div className="w-full h-full flex justify-center items-center mb-6 lg:mb-0 md:mb-6">
-              <motion.div
+              <motion.button
+                onClick={() => setSelectedAppointment(item)}
                 whileHover={{
                   scale: 1.1,
                   backgroundColor: "red",
@@ -67,11 +108,43 @@ const AppointmentComponent = ({ props }: propsComponent) => {
                 className="px-3 py-2 bg-black text-white font-bold text-md shadow-2xl rounded-lg cursor-pointer"
               >
                 Revoke Request
-              </motion.div>
+              </motion.button>
             </div>
           </div>
         );
       })}
+      {selectedAppointment && (
+        <Dialog
+          open={!!selectedAppointment}
+          onOpenChange={() => setSelectedAppointment(null)}
+        >
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                {`Are you sure, you want to revoke your request with ${selectedAppointment.doctorAttending} ?`}
+              </DialogTitle>
+            </DialogHeader>
+            <DialogFooter>
+              <motion.button
+                onClick={() =>
+                  handleRevoke(
+                    selectedAppointment.userEmail,
+                    selectedAppointment.doctorAttending
+                  )
+                }
+                whileHover={{
+                  scale: 1.1,
+                  backgroundColor: "red",
+                  color: "white",
+                }}
+                className="px-3 py-2 bg-black rounded-lg text-white font-bold shadow-2xl cursor-pointer"
+              >
+                Revoke
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 };

@@ -87,3 +87,39 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const { email, doctorName } = await req.json();
+
+  try {
+    const request = await prisma.appointmentBooking.findFirst({
+      where: {
+        userEmail: email,
+        doctorAttending: doctorName,
+      },
+    });
+
+    if (!request) {
+      return NextResponse.json(
+        { message: "There is no such request in the database" },
+        { status: 404 }
+      );
+    }
+    await prisma.appointmentBooking.delete({
+      where: {
+        id: request.id,
+      },
+    });
+
+    return NextResponse.json(
+      { message: "Request Deleted Successfully" },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { message: "Failed to delete the request" },
+      { status: 500 }
+    );
+  }
+}
