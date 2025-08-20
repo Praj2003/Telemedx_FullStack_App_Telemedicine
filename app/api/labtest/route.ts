@@ -94,3 +94,43 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { email, testType } = await req.json();
+
+    const existingRequest = await prisma.labTestBooking.findFirst({
+      where: {
+        userEmail: email,
+        testType: testType,
+      },
+    });
+
+    if (!existingRequest) {
+      return NextResponse.json(
+        { message: "There is no such request in the database" },
+        { status: 404 }
+      );
+    }
+
+    await prisma.labTestBooking.delete({
+      where: {
+        id: existingRequest.id,
+      },
+    });
+
+    return NextResponse.json(
+      { message: "Request Has been deleted successfully" },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      {
+        message:
+          "There is some error while deleting the request from the database",
+      },
+      { status: 500 }
+    );
+  }
+}
