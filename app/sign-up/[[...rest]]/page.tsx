@@ -10,7 +10,7 @@ const SignUpPage = () => {
           path="/sign-up"
           routing="path"
           signInUrl="/sign-in"
-          forceRedirectUrl="/"
+          forceRedirectUrl={"/"}
         />
       </div>
     </div>

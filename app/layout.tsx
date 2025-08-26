@@ -1,31 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Manrope, Roboto } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"], 
-});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"], // Add or adjust weights as needed
 });
 
 export const metadata: Metadata = {

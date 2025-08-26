@@ -1,7 +1,6 @@
 "use client";
 import { Typewriter } from "react-simple-typewriter";
 
-import { useUser } from "@clerk/nextjs";
 
 import { motion } from "motion/react";
 
@@ -36,7 +35,6 @@ import goalsData from "@/goalsData";
 import Image from "next/image";
 
 export default function Home() {
-  const { user } = useUser();
   const router = useRouter();
 
   async function handleSignUpButtonClick() {
@@ -47,12 +45,12 @@ export default function Home() {
     <div className="min-w-full min-h-screen">
       <div className="Poster text-black min-w-full lg:min-h-[90vh] min-h-[100vh]  grid lg:grid-cols-2 grid-cols-1">
         <div className="flex items-center justify-center">
-          <div className="flex flex-col items-center gap-7 lg:mt-16  md:mt-16 mt-32">
-            <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-900 via-teal-600 to-teal-500">
+          <div className="flex flex-col lg:items-center md:items-center gap-7 lg:mt-16  md:mt-16 mt-32 justify-center items-center text-center">
+            <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-900 via-teal-600 to-teal-500 pb-3">
               Welcome to TeleMedX
             </h2>
 
-            <div className="flex items-center justify-center gap-4  mb-11">
+            <div className="flex items-center justify-center gap-2  mb-11">
               <div className="flex items-center gap-2 text-teal-700 font-medium">
                 <IoShieldCheckmark className="text-2xl text-teal-500" />
                 Verified Doctors
