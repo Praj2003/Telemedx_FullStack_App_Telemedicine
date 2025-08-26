@@ -14,7 +14,7 @@ const geistSans = Geist({
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"], // You can adjust weights as needed
+  weight: ["400", "500", "600", "700"], 
 });
 
 const geistMono = Geist_Mono({
@@ -43,7 +43,7 @@ export default function RootLayout({
       <Navbar />
       <html lang="en">
         <body
-          className={`${roboto.variable}  antialiase bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]
+          className={`${geistMono.variable}  antialiase bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]
             min-h-screen`}
         >
           {children}

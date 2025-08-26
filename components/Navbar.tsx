@@ -2,7 +2,6 @@
 import React from "react";
 import {
   SignInButton,
-  SignUpButton,
   SignOutButton,
   SignedIn,
   SignedOut,
@@ -56,19 +55,29 @@ const Navbar = () => {
               Home
             </motion.li>
           </Link>
-          <motion.li
-            whileHover={{ scale: 1.1, backgroundColor: "teal", color: "white" }}
-            className="px-3 py-2 rounded-xl cursor-pointer"
-          >
-            About Us
-          </motion.li>
+          <Link href={"/userDashboard"}>
+            <motion.li
+              whileHover={{
+                scale: 1.1,
+                backgroundColor: "teal",
+                color: "white",
+              }}
+              className="px-3 py-2 rounded-xl cursor-pointer"
+            >
+              Dashboard
+            </motion.li>
+          </Link>
           <motion.li
             whileHover={{ scale: 1.1, backgroundColor: "teal", color: "white" }}
             className="px-3 py-2 rounded-xl cursor-pointer"
           >
             Contact Us
           </motion.li>
-          <motion.div onHoverStart={() => setIsServicesOpen(true)} onHoverEnd={() => setIsServicesOpen(false)} className="relative">
+          <motion.div
+            onHoverStart={() => setIsServicesOpen(true)}
+            onHoverEnd={() => setIsServicesOpen(false)}
+            className="relative"
+          >
             <motion.li
               onClick={() => setIsServicesOpen(!isServicesOpen)}
               whileHover={{

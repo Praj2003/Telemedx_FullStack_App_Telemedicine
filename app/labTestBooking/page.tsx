@@ -5,10 +5,10 @@ import { motion } from "motion/react";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -25,7 +25,17 @@ import {
 } from "@/components/ui/popover";
 import { FaChevronDown } from "react-icons/fa";
 
+
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
 const LabTestBooking = () => {
+  const router = useRouter();
   const { user } = useUser();
 
   const [selectedTest, setSelectedTest] = useState("");
@@ -35,6 +45,7 @@ const LabTestBooking = () => {
   const [patientName, setPatientName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -79,9 +90,7 @@ const LabTestBooking = () => {
         );
       }
 
-      toast.success("Lab test booking successful!", {
-        position: "bottom-right",
-      });
+      router.push(`/labTestReview?labTest=${selectedTest}`);
 
       console.log("L:abtest Booking Successfull!");
     } catch (err) {
@@ -101,7 +110,7 @@ const LabTestBooking = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 min-w-full min height screen">
-      <div className=" relative min-w-full flex flex-col items-center justify-center gap-9">
+      <div className=" relative min-w-full lg:flex flex-col items-center justify-center gap-9 md:hidden lg:visible hidden">
         <div className=" mt-24 lg:w-[300px] lg:h-[300px] md:w-[200px] md:h-[200px] w-[250px] h-[250px] rounded-full bg-gray-700 relative">
           <Image
             src={"/images/hospital3.jpg"}
@@ -206,12 +215,7 @@ const LabTestBooking = () => {
           <CardFooter>
             <motion.button
               onClick={() => {
-                const isConfirmed = window.confirm(
-                  "Are you sure you want to submit the lab test booking?"
-                );
-                if (isConfirmed) {
-                  handleSubmit();
-                }
+                setOpenDialog(true);
               }}
               whileHover={{
                 scale: 1.1,
@@ -225,6 +229,44 @@ const LabTestBooking = () => {
           </CardFooter>
         </Card>
       </div>
+      {openDialog && (
+        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                Do you confirm for the booking of Labtest{" "}
+              </DialogTitle>
+            </DialogHeader>
+            <DialogFooter>
+              <motion.button
+                onClick={() => {
+                  handleSubmit();
+                  setOpenDialog(false);
+                }}
+                whileHover={{
+                  scale: 1.1,
+                  backgroundColor: "green",
+                  color: "white",
+                }}
+                className="px-3 py-2 bg-black text-white font-bold rounded-xl cursor-pointer"
+              >
+                Confirm
+              </motion.button>
+              <motion.button
+                onClick={() => setOpenDialog(false)}
+                whileHover={{
+                  scale: 1.1,
+                  backgroundColor: "red",
+                  color: "white",
+                }}
+                className="px-3 py-2 bg-black text-white font-bold rounded-xl cursor-pointer ml-2"
+              >
+                Cancel
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };

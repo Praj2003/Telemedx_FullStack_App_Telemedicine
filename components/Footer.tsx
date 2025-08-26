@@ -21,12 +21,14 @@ const Footer = () => {
         >
           About Us
         </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: "teal", color: "white" }}
-          className="text-white bg-black px-3 py-2 rounded-lg cursor-pointer"
-        >
-          Book Appointment
-        </motion.button>
+        <Link href={"/bookAppointment"}>
+          <motion.button
+            whileHover={{ scale: 1.1, backgroundColor: "teal", color: "white" }}
+            className="text-white bg-black px-3 py-2 rounded-lg cursor-pointer"
+          >
+            Book Appointment
+          </motion.button>
+        </Link>
       </div>
 
       <div className="flex flex-col items-center justify-center gap-5 text-white font-bold">
@@ -61,7 +63,7 @@ const Footer = () => {
               href={"https://www.linkedin.com/in/prajval-kanda-831759237/"}
               className="text-4xl font-bold  text-white"
             >
-              <FaLinkedin/>
+              <FaLinkedin />
             </Link>
           </motion.div>
         </div>

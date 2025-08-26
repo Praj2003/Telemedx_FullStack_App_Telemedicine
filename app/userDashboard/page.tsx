@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, RedirectToSignIn, useUser } from "@clerk/nextjs";
 
 import {
   Select,
@@ -128,41 +128,55 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="min-w-full min-h-screen">
-      <div className="relative MainHeading w-full text-center mt-36">
-        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 via-teal-400 to-teal-700">
-          Welcome, {user?.username}!
-        </h1>
+    <>
+      <SignedIn>
+        <div className="min-w-full min-h-screen">
+          <div className="relative MainHeading w-full text-center mt-36">
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 via-teal-400 to-teal-700">
+              Welcome, {user?.username}!
+            </h1>
 
-        <div className="absolute right-0 bottom-7 p-4">
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="w-[90px] md:w-[190px] lg:w-[240px] font-bold  rounded-lg">
-              <SelectValue placeholder="Select an option" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="LabTest">Lab tests</SelectItem>
-              <SelectItem value="AppointmentBooking">
-                Doctor Appointment Booking
-              </SelectItem>
-            </SelectContent>
-          </Select>
+            <div className="absolute right-0 bottom-7 p-4">
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger className="w-[90px] md:w-[190px] lg:w-[240px] font-bold  rounded-lg">
+                  <SelectValue placeholder="Select an option" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="LabTest">Lab tests</SelectItem>
+                  <SelectItem value="AppointmentBooking">
+                    Doctor Appointment Booking
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {category === undefined && (
+            <div className="min-w-full mt-16">
+              <h1 className="text-center text-2xl font-semibold text-gray-600 mt-10">
+                Please select a category to view your requests.
+              </h1>
+            </div>
+          )}
+
+          {labTestData !== null && (
+            <div className="min-w-full place-items-center">
+              <LabTestDataComponent props={labTestData} />
+            </div>
+          )}
+
+          {appointmentData !== null && (
+            <div className="min-w-full place-items-center">
+              <AppointmentComponent props={appointmentData} />
+            </div>
+          )}
         </div>
-      </div>
+      </SignedIn>
 
-      {labTestData !== null && (
-        <div className="min-w-full place-items-center">
-          <LabTestDataComponent props={labTestData} />
-        </div>
-      )}
-
-      {
-        appointmentData !== null && <div className="min-w-full place-items-center">
-            <AppointmentComponent props={appointmentData}/>
-        </div>
-      }
-
-
-    </div>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
   );
 };
 
