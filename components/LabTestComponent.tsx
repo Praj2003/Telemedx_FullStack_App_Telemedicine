@@ -23,10 +23,10 @@ import {
 import { toast } from "sonner";
 
 interface propsComponent {
-  props: LabTest[];
+  data: LabTest[];
 }
 
-const LabTestDataComponent = ({ props }: propsComponent) => {
+const LabTestDataComponent = ({ data }: propsComponent) => {
   const [test, setTest] = useState<LabTest | null>(null);
   const [dropDown, setDropDown] = useState(false);
 
@@ -67,7 +67,7 @@ const LabTestDataComponent = ({ props }: propsComponent) => {
           Current Lab Requests
         </h1>
       </div>
-      {props.map((item, index) => {
+      {data.map((item, index) => {
         return (
           <div
             key={index}

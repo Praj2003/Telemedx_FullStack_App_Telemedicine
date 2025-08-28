@@ -47,6 +47,7 @@ const UserDashboard = () => {
   useEffect(() => {
     async function fetchData() {
       const email = user?.primaryEmailAddress?.emailAddress;
+      if(!email || !category) return;
       if (category === undefined) return;
       try {
         setLoading(true);
@@ -92,7 +93,7 @@ const UserDashboard = () => {
     }
 
     fetchData();
-  }, [category]);
+  }, [category,user]);
 
   useEffect(() => {
     console.log("Updated Lab Test Data:", labTestData);
@@ -162,13 +163,13 @@ const UserDashboard = () => {
 
           {labTestData !== null && (
             <div className="min-w-full place-items-center">
-              <LabTestDataComponent props={labTestData} />
+              <LabTestDataComponent data={labTestData} />
             </div>
           )}
 
           {appointmentData !== null && (
             <div className="min-w-full place-items-center">
-              <AppointmentComponent props={appointmentData} />
+              <AppointmentComponent data={appointmentData} />
             </div>
           )}
         </div>

@@ -22,10 +22,10 @@ import {
 } from "@/components/ui/dialog";
 
 interface propsComponent {
-  props: Appointment[];
+  data: Appointment[];
 }
 
-const AppointmentComponent = ({ props }: propsComponent) => {
+const AppointmentComponent = ({ data }: propsComponent) => {
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
 
@@ -62,7 +62,7 @@ const AppointmentComponent = ({ props }: propsComponent) => {
           Current Appointment Requests
         </h1>
       </div>
-      {props.map((item, index) => {
+      {data.map((item, index) => {
         return (
           <div
             key={index}
