@@ -85,7 +85,8 @@ const UserDashboard = () => {
       } catch (err) {
         setLoading(false);
         console.error(
-          "There is some error while fetching the information from the database"
+          "There is some error while fetching the information from the database",
+          err
         );
       }
     }

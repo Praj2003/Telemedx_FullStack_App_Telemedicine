@@ -75,19 +75,19 @@ const LabTestDataComponent = ({ props }: propsComponent) => {
           >
             <div className="w-full flex items-center justify-center p-4 flex-col gap-5">
               <div className="w-full flex items-center justify-between">
-                <strong>Patient's Name</strong>
+                <strong>{"Patient's Name"}</strong>
                 <p>{item.patientName}</p>
               </div>
 
               <div className="w-full flex items-center justify-between">
-                <strong>Patient's address</strong>
+                <strong>{"Patient's address"}</strong>
                 <p>{item.address}</p>
               </div>
             </div>
 
             <div className="w-full flex items-center justify-center p-4 flex-col gap-5">
               <div className="w-full flex items-center justify-between">
-                <strong>Patient's Contact</strong>
+                <strong>{"Patient's Contact"}</strong>
                 <p>{item.contactNumber}</p>
               </div>
 

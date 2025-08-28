@@ -122,7 +122,7 @@ const LabTestBooking = () => {
             </div>
 
             <h2 className="text-xl font-semibold text-teal-700 italic">
-              "Your Health, Our Priority — Seamless Care At Your Fingertips"
+              {"Your Health, Our Priority — Seamless Care At Your Fingertips"}
             </h2>
           </div>
 
